@@ -11,11 +11,18 @@ function getRoomRates() {
     const numAdults = Number(document.getElementById("numAdults").value);
     const numChildren = Number(document.getElementById("numChildren").value);
     const message = document.getElementById("message");
-    if (numAdults > 4 || numAdults < 1) {    
-            message.innerHTML = "Only 1-4 adults";
-            return;
+    const party = numAdults + numChildren;
+
+    //radiobox input; test if they're checked or not; and party size
+    const queenChecked = document.getElementById("queen").checked;
+    const kingChecked = document.getElementById("king").checked;
+    const suiteChecked = document.getElementById("2bed").checked;
+
+    if (numAdults > 4 || numAdults < 1) {
+        message.innerHTML = "Only between 1-4 adults";
+        return;
     }
-    else if(numChildren > 4 || numChildren < 0){
+    else if (numChildren > 4 || numChildren < 0) {
         message.innerHTML = "None<sub>(hopefully, that's what you're here for, no?)</sub> or up to 4";
         return;
     }
@@ -41,6 +48,7 @@ function getRoomRates() {
         const queenChecked = document.getElementById("queen").checked;
         const kingChecked = document.getElementById("king").checked;
         const suiteChecked = document.getElementById("2bed").checked;
+
 
         //radiobox input for discount
         const seniorChecked = document.getElementById("senior").checked;
@@ -69,14 +77,31 @@ function getRoomRates() {
         }
 
         //values for rooms are set; find the room that was checked and multiple it per day
+        //I decided to also test for party size here too, since not much has been computed
         if (queenChecked) {
-            justRoomCost = getDaysBooked * queenCost;
+            if (party > 5) {
+                message.innerHTML = "The room you selected will not hold your party";
+                return;
+            }
+            else {
+                justRoomCost = getDaysBooked * queenCost;
+            }
         }
         else if (kingChecked) {
+            if (party > 2) {
+                message.innerHTML = "The room you selected will not hold your party";
+                return;
+            }
             justRoomCost = getDaysBooked * kingCost;
         }
         else if (suiteChecked) {
-            justRoomCost = getDaysBooked * suiteCost;
+            if (party > 6) {
+                message.innerHTML = "The room you selected will not hold your party";
+                return;
+            }
+            else {
+                justRoomCost = getDaysBooked * suiteCost;
+            }
         }
 
         //test for discount; justRoomCost is already found so, discount is next
@@ -107,7 +132,4 @@ function getRoomRates() {
     }
 }
 
-/*2:57PM I just realized I overcomplicated all of this. ALL OF IT...*/
-
-// const test = document.getElementById("message");
-// test.innerHTML = "hello";
+/*2:57PM I just realized I overcomplicated all of this. ALL OF IT...3:49PM As if I couldn't overcomplicate it even more...*/
