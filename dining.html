@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Dining</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="overnightcost.html">Book your stay!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dining.html">Dining Options</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="display-2">What's avaible</h1>
+            <h2 class="display-3 text-center"><em>FEAST</em></h2>
+
+            <form>
+                <div class="form-check form-check-inline">
+                    <input id="payAsYouGo" name="diningOptions" value="payAsYouGo" type="radio" class="form-check-input" />
+                    <label for="payAsYouGo" class="form-label">Pay as you go</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input id="allInclusive" name="diningOptions" value="allInclusive" type="radio" class="form-check-input" />
+                    <label for="allInclusive" class="form-label">All inclusive</label>
+                </div>
+                <!--using the abbreviation of pay as you go-->
+                <div id="payg-options" class="hideOrShow">
+                    <p></p>
+                    <p id="test"></p>
+                </div>
+                <!--similarly, using abbreviation-->
+                <div id="ai-options" class="hideOrShow">
+                    <p></p>
+                    <p id="test"></p>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="./scripts/dining.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

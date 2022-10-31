@@ -13,11 +13,6 @@ function getRoomRates() {
     const message = document.getElementById("message");
     const party = numAdults + numChildren;
 
-    //radiobox input; test if they're checked or not; and party size
-    const queenChecked = document.getElementById("queen").checked;
-    const kingChecked = document.getElementById("king").checked;
-    const suiteChecked = document.getElementById("2bed").checked;
-
     if (numAdults > 4 || numAdults < 1) {
         message.innerHTML = "Only between 1-4 adults";
         return;
@@ -30,10 +25,10 @@ function getRoomRates() {
         message.innerHTML = "";
         //finding the current month and making sure the day doesn't impact it(June 1st is what I have in mind)
 
-        let findMonth = new Date((document.getElementById("checkin").value));  //the format is returned as in one day behind
-        let fixDay = findMonth.getDate() + 1; //change the day to current
-        findMonth.setDate(fixDay); //go into the ENTIRE date and set the day to current DAY; could have an impact
-        findMonth = findMonth.getMonth() + 1;//getMonth returns 0-based; add 1 for current month
+        let inputDate = new Date((document.getElementById("checkin").value));  //the format is returned as in one day behind
+        let fixDay = inputDate.getDate() + 1; //change the day to current; getDate is the only 1-based, adding 1 b/c of the date format getDate is getting from 
+        inputDate.setDate(fixDay); //go into the ENTIRE date but just set the day to current DAY; could have an impact
+        let findMonth = inputDate.getMonth() + 1;//getMonth returns 0-based; add 1 for current month; June 1st is included
 
         //room costs
         let kingCost;
@@ -115,13 +110,13 @@ function getRoomRates() {
         }
         else {
             discountRate = 0;
-            justDiscount = justRoomCost;
+            justDiscount = 0;
         }
 
         //I decided to declare these variables here because they aren't needed anywhere else but in the end, no?
         const afterDiscount = justRoomCost - justDiscount;
         const justTax = (afterDiscount * 0.12); //the tax after discounted total has been computed
-        const finalCost = (afterDiscount + justTax.toFixed(2)); //adding the afterdiscounted total with the tax to get final
+        const finalCost = (afterDiscount + justTax).toFixed(2); //adding the afterdiscounted total with the tax to get final
 
         //return the computed values
         returnRoomCost.innerHTML = `Room cost: $${justRoomCost}`;
@@ -129,6 +124,27 @@ function getRoomRates() {
         returnDiscountedTotal.innerHTML = `Discounted Total: $${justDiscount.toFixed(2)}`;
         returnTax.innerHTML = `Tax: $${justTax}`;
         returnFinalCost.innerHTML = `Total: $${finalCost}`;
+        displayConfirmationNumber(); //call to another function
     }
 }
-/*2:57PM I just realized I overcomplicated all of this. ALL OF IT...3:49PM As if I couldn't overcomplicate it even more...*/
+/*10/29/22 2:57PM I just realized I overcomplicated all of this. ALL OF IT...3:49PM As if I couldn't overcomplicate it even more...*/
+
+function displayConfirmationNumber() {
+    //
+    const displayCode = document.getElementById("confirmationCode");
+    const getUserName = document.getElementById("name").value;
+    const getDate = new Date(document.getElementById("checkin").value);
+    const bookedDays = document.getElementById("daysStay").value;
+    const numAdults = Number(document.getElementById("numAdults").value);
+    const numChildren = Number(document.getElementById("numChildren").value);
+
+    //get first three letter from name; capitalize all
+    const threeLetters = getUserName.substring(0, 3).toUpperCase();
+    //get year
+    let findYear = getDate.getFullYear();
+    let findMonth = getDate.getMonth() + 1;
+
+
+
+    displayCode.innerHTML = `${threeLetters}-${findMonth}${findYear}-${bookedDays}:${numAdults}:${numChildren}`;
+}
