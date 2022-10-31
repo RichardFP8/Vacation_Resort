@@ -7,7 +7,7 @@ window.onload = function () {
 
 function getRoomRates() {
     //get # of party
-    //test if it's within range; return message if not; otherwise proceed to calculate over
+    //test if it's within range; return message if not; otherwise proceed to calculate 
     const numAdults = Number(document.getElementById("numAdults").value);
     const numChildren = Number(document.getElementById("numChildren").value);
     const message = document.getElementById("message");
@@ -23,14 +23,14 @@ function getRoomRates() {
         return;
     }
     else if (numChildren > 4 || numChildren < 0) {
-        message.innerHTML = "None<sub>(hopefully, that's what you're here for, no?)</sub> or up to 4";
+        message.innerHTML = "None<sub>(hopefully, that's what you're here for, no?)</sub> or up to 4 children";
         return;
     }
     else {
         message.innerHTML = "";
         //finding the current month and making sure the day doesn't impact it(June 1st is what I have in mind)
 
-        let findMonth = new Date((document.getElementById("checkin").value));  //the format is returned as is one day behind
+        let findMonth = new Date((document.getElementById("checkin").value));  //the format is returned as in one day behind
         let fixDay = findMonth.getDate() + 1; //change the day to current
         findMonth.setDate(fixDay); //go into the ENTIRE date and set the day to current DAY; could have an impact
         findMonth = findMonth.getMonth() + 1;//getMonth returns 0-based; add 1 for current month
@@ -118,18 +118,17 @@ function getRoomRates() {
             justDiscount = justRoomCost;
         }
 
-        //I decided to declare these variables here because they aren't needed anywhere else but in the end
+        //I decided to declare these variables here because they aren't needed anywhere else but in the end, no?
         const afterDiscount = justRoomCost - justDiscount;
-        const justTax = afterDiscount * 0.12; //the tax after discounted total has been computed
-        const finalCost = afterDiscount + justTax; //adding the afterdiscounted total with the tax to get final
+        const justTax = (afterDiscount * 0.12); //the tax after discounted total has been computed
+        const finalCost = (afterDiscount + justTax.toFixed(2)); //adding the afterdiscounted total with the tax to get final
 
         //return the computed values
         returnRoomCost.innerHTML = `Room cost: $${justRoomCost}`;
         returnDiscount.innerHTML = `Discount: ${discountRate * 100}%`;
         returnDiscountedTotal.innerHTML = `Discounted Total: $${justDiscount.toFixed(2)}`;
-        returnTax.innerHTML = `Tax: $${justTax.toFixed(2)}`;
-        returnFinalCost.innerHTML = `Total: $${finalCost.toFixed(2)}`;
+        returnTax.innerHTML = `Tax: $${justTax}`;
+        returnFinalCost.innerHTML = `Total: $${finalCost}`;
     }
 }
-
 /*2:57PM I just realized I overcomplicated all of this. ALL OF IT...3:49PM As if I couldn't overcomplicate it even more...*/
